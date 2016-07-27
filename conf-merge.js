@@ -24,7 +24,7 @@ nconf
     lowerCase: true,
     separator: '__',
     match: /^(postgres|dns_resolvers_available)__.+/,
-    whitelist: ['database']
+    whitelist: ['database', 'dns_resolver']
   })
   .file({
     file: args[0],
