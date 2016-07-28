@@ -24,7 +24,7 @@ try {
       console.log(sprintf('tcp:%s:%s', conf.postgres.host, conf.postgres.port))
       break
     default:
-      console.log(sprintf('Specified database is not supported: %s', database))
+      console.error(sprintf('Specified database is not supported: %s', database))
       process.exit(1)
   }
 } catch (e) {

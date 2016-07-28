@@ -9,7 +9,7 @@ var waitOn = require('wait-on'),
     }),
     args = process.argv.slice(2)
 
-if (args.length < 1) {
+if (args.length > 1) {
   console.error(sprintf('Usage: %s [resource-to-wait-on]', process.argv[1]))
   process.exit(1)
 }
@@ -24,7 +24,7 @@ if (args.length == 1) {
 }
 
 function wait(resource) {
-  waitOn({resources: [resource], timeout: 5000}, function(err) {
+  waitOn({resources: [resource], timeout: 30000}, function(err) {
     if (err) { 
       console.error(sprintf('Gave up waiting for %s, err was %s', resource, err)) 
       process.exit(1)

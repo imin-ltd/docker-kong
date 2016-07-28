@@ -6,6 +6,8 @@ set -e -o pipefail
 conf-merge.js /etc/kong/kong.yml
 
 # Wait for database availability
-conf-database-resource.js /etc/kong/kong.yml | wait-on-resource.js
+if [[ $1 == 'kong' ]]; then
+  conf-database-resource.js /etc/kong/kong.yml | wait-on-resource.js
+fi
 
 exec "$@"
