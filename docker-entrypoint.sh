@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/usr/local/bin/dumb-init /bin/bash
 
-set -e -o pipefail
+set -e
 
-# Merge default config with supplied environment
-conf-merge.js /etc/kong/kong.yml
+# Disabling nginx daemon mode
+export KONG_NGINX_DAEMON="off"
+
+[ -z "$KONG_NGINX_DAEMON" ] && export KONG_NGINX_DAEMON="off"
 
 # Wait for database availability
 if [[ $1 == 'kong' ]]; then
-  conf-database-resource.js /etc/kong/kong.yml | wait-on-resource.js
+  wait-for-it -t 30 ${KONG_PG_HOST}:5432
 fi
 
 exec "$@"
